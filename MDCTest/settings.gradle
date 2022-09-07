@@ -1,0 +1,8 @@
+rootProject.name = 'MDCTest'
+buildCache {
+    local {
+        directory = new File(settingsDir,'build-cache-1')
+        removeUnusedEntriesAfterDays = 30
+    }
+}
+
