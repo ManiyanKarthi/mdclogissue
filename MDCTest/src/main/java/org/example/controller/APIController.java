@@ -3,8 +3,8 @@ package org.example.controller;
 import brave.ScopedSpan;
 import brave.Tracer;
 import lombok.AllArgsConstructor;
-import org.jboss.logging.MDC;
 import org.slf4j.Logger;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +24,7 @@ public class APIController {
     @PostMapping(value = "/mdclog")
     public Mono<ResponseEntity<String>> processJmlEvent(@RequestBody String payload) {
         return Mono.just(payload)
-                .doOnNext(payload1->log.info("{}", MDC.getMap().keySet()))
+                .doOnNext(payload1->log.info("TraceId {}", MDC.getMDCAdapter().get("traceId")))
                 .map(out->ResponseEntity.accepted().body(payload));
     }
 }
